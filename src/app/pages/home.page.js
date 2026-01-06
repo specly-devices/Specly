@@ -1,3 +1,3 @@
 export function initHomePage() {
-  console.log('Home page initialized');
+  document.body.innerHTML = '<h1>HOME PAGE LOADED</h1>';
 }
