@@ -7,10 +7,12 @@ export async function initHomePage() {
   const devices = await getAllDevices();
 
   app.innerHTML = `
-    <h1>Available Devices</h1>
+    <h1>Home</h1>
+
+    <a href="./listing.html">Go to All Devices</a>
+
     <div id="device-list"></div>
   `;
 
-  const listContainer = document.getElementById('device-list');
-  renderDeviceList(devices, listContainer);
+  renderDeviceList(devices, document.getElementById('device-list'));
 }
