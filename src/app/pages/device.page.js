@@ -32,5 +32,16 @@ app.innerHTML = `
   <button id="addToCompareBtn">Add to Compare</button>
   <p id="compareMessage"></p>
 `;
+const button = document.getElementById('addToCompareBtn');
+const message = document.getElementById('compareMessage');
 
+button.addEventListener('click', () => {
+  const result = addToCompare(device.id);
+
+  if (!result.success) {
+    message.textContent = result.message;
+  } else {
+    message.textContent = 'Added to compare';
+  }
+});
 }
