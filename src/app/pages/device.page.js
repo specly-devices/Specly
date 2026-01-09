@@ -1,3 +1,3 @@
 export function initDevicePage() {
-  console.log('Device page initialized');
+  document.getElementById('app').innerHTML = '<h1>Device Page</h1>';
 }
