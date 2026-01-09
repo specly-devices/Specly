@@ -1,3 +1,3 @@
 export function initListingPage() {
-  console.log('Listing page initialized');
+  document.getElementById('app').innerHTML = '<h1>Listing Page</h1>';
 }
