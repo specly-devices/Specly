@@ -1,1 +1,14 @@
-
+[
+  {
+    "id": "iphone_15",
+    "name": "iPhone 15",
+    "brand": "Apple",
+    "price": 799
+  },
+  {
+    "id": "galaxy_s24",
+    "name": "Galaxy S24",
+    "brand": "Samsung",
+    "price": 749
+  }
+]
