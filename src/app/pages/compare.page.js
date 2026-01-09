@@ -1,3 +1,3 @@
 export function initComparePage() {
-  console.log('Compare page initialized');
+  document.getElementById('app').innerHTML = '<h1>Compare Page</h1>';
 }
