@@ -1,9 +1,9 @@
 export function DeviceCard(device) {
   return `
-    <div class="device-card">
+    <a href="./device.html?id=${device.id}" class="device-card">
       <h3>${device.name}</h3>
       <p>Brand: ${device.brand}</p>
       <p>Price: $${device.price}</p>
-    </div>
+    </a>
   `;
 }
