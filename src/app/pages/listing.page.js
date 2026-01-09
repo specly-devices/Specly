@@ -5,6 +5,7 @@ export async function initListingPage() {
   const app = document.getElementById('app');
 
   app.innerHTML = `
+  <a href="./index.html">← Back to Home</a>
     <h1>All Devices</h1>
     <div id="device-list"></div>
   `;
