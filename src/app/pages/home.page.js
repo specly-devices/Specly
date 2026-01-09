@@ -1,16 +1,16 @@
 import { getAllDevices } from '../services/device.service.js';
+import { renderDeviceList } from '../../ui/renderers/device.renderer.js';
 
 export async function initHomePage() {
   const app = document.getElementById('app');
 
-  try {
-    const devices = await getAllDevices();
-    app.innerHTML = `
-      <h1>Home Page</h1>
-      <p>Total devices available: <strong>${devices.length}</strong></p>
-    `;
-  } catch (error) {
-    app.innerHTML = `<p>Error loading devices</p>`;
-    console.error(error);
-  }
+  const devices = await getAllDevices();
+
+  app.innerHTML = `
+    <h1>Available Devices</h1>
+    <div id="device-list"></div>
+  `;
+
+  const listContainer = document.getElementById('device-list');
+  renderDeviceList(devices, listContainer);
 }
