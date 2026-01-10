@@ -1,14 +1,16 @@
 import { getAllDevices } from '../services/device.service.js';
 import { renderDeviceList } from '../../ui/renderers/device.renderer.js';
+import { Header } from '../../ui/components/Header.js';
 
 export async function initListingPage() {
   const app = document.getElementById('app');
 
-  app.innerHTML = `
+ app.innerHTML = `
+  ${Header()}
   <a href="./index.html">← Back to Home</a>
-    <h1>All Devices</h1>
-    <div id="device-list"></div>
-  `;
+  <h1>All Devices</h1>
+  <div id="device-list"></div>
+`;
 
   try {
     const devices = await getAllDevices();
