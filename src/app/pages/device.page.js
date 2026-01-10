@@ -1,5 +1,6 @@
 import { getDeviceById } from '../services/device.service.js';
 import { addToCompare } from '../state/compare.state.js';
+import { Header } from '../../ui/components/Header.js';
 
 export async function initDevicePage() {
   const app = document.getElementById('app');
@@ -23,6 +24,7 @@ export async function initDevicePage() {
 
   // 3. Render device details
 app.innerHTML = `
+  ${Header()}
   <a href="./listing.html">← Back to Listing</a>
 
   <h1>${device.name}</h1>
@@ -32,6 +34,7 @@ app.innerHTML = `
   <button id="addToCompareBtn">Add to Compare</button>
   <p id="compareMessage"></p>
 `;
+
 const button = document.getElementById('addToCompareBtn');
 const message = document.getElementById('compareMessage');
 
