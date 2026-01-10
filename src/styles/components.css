@@ -114,3 +114,10 @@ button:disabled {
   border: 1px solid #ddd;
   max-width: 500px;
 }
+
+.empty-state {
+  padding: 24px;
+  background-color: #fff;
+  border: 1px dashed #ccc;
+  border-radius: 6px;
+}
