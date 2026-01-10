@@ -40,8 +40,10 @@ button.addEventListener('click', () => {
 
   if (!result.success) {
     message.textContent = result.message;
-  } else {
-    message.textContent = 'Added to compare';
+    return;
   }
+
+  // Redirect to compare page after successful add
+  window.location.href = './compare.html';
 });
 }
