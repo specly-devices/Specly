@@ -3,6 +3,7 @@ import { getDeviceById } from '../services/device.service.js';
 
 export async function initComparePage() {
   const app = document.getElementById('app');
+  app.innerHTML = '<p>Compare page JS loaded</p>';
 
   const compareIds = getCompareDevices();
 
