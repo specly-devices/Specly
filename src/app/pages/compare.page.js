@@ -11,7 +11,11 @@ export async function initComparePage() {
     app.innerHTML = `
   ${Header()}
   <h1>Compare Devices</h1>
+
+  <div class="empty-state">
   <p>No devices added to compare.</p>
+</div>
+
   <a href="./listing.html">Go to Listing</a>
 `;
 
