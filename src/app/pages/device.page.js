@@ -27,9 +27,12 @@ app.innerHTML = `
   ${Header()}
   <a href="./listing.html">← Back to Listing</a>
 
+  <div class="device-details">
   <h1>${device.name}</h1>
   <p><strong>Brand:</strong> ${device.brand}</p>
   <p><strong>Price:</strong> $${device.price}</p>
+</div>
+
 
   <button id="addToCompareBtn">Add to Compare</button>
   <p id="compareMessage"></p>
