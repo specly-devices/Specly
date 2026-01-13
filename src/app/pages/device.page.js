@@ -30,7 +30,7 @@ app.innerHTML = `
   <div class="device-details">
   <h1>${device.name}</h1>
   <p><strong>Brand:</strong> ${device.brand}</p>
-  <p><strong>Price:</strong> $${device.price}</p>
+  <p><strong>Price:</strong> $${device.pricing.launch_price}</p>
 </div>
 
 
