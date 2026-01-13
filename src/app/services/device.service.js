@@ -1,11 +1,14 @@
 import { fetchJson } from '../../shared/api/http.client.js';
+import { normalizeDevice } from '../models/device.model.js';
 
 const DATA_PATH = './data/devices.json';
 
 export async function getAllDevices() {
-  return fetchJson(DATA_PATH);
+  const rawDevices = await fetchJson(DATA_PATH);
+  return rawDevices.map(normalizeDevice);
 }
+
 export async function getDeviceById(id) {
   const devices = await getAllDevices();
-  return devices.find(device => device.id === id);
+  return devices.find(d => d.id === id);
 }
