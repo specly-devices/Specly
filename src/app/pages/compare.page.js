@@ -1,6 +1,8 @@
 import { getCompareDevices, removeFromCompare } from '../state/compare.state.js';
 import { getDeviceById } from '../services/device.service.js';
 import { Header } from '../../ui/components/Header.js';
+import { COMPARE_SPECS } from '../config/compareSpecs.config.js';
+import { getValueByPath } from '../utils/object.utils.js';
 
 export async function initComparePage() {
   const app = document.getElementById('app');
@@ -36,26 +38,20 @@ function renderCompareTable(devices, container) {
  container.innerHTML = `
   ${Header()}
   <h1>Compare Devices</h1>
-  <table border="1" cellpadding="8">
-    <tr>
-      <th>Feature</th>
-      ${devices.map(d => `<th>${d.name}</th>`).join('')}
-    </tr>
-    <tr>
-      <td>Brand</td>
-      ${devices.map(d => `<td>${d.brand}</td>`).join('')}
-    </tr>
-    <tr>
-  <td>Price</td>
-  ${devices.map(d => `<td>$${d.pricing.launch_price}</td>`).join('')}
-</tr>
-    <tr>
-      <td>Action</td>
-      ${devices.map(d =>
-        `<td><button data-id="${d.id}">Remove</button></td>`
-      ).join('')}
-    </tr>
-  </table>
+ <table>
+  <tr>
+    <th>Feature</th>
+    ${devices.map(d => `<th>${d.name}</th>`).join('')}
+  </tr>
+
+  <tr>
+    <td>Price</td>
+    ${devices.map(d => `<td>$${d.pricing.launch_price}</td>`).join('')}
+  </tr>
+
+  ${renderSpecRows(devices)}
+
+</table>
 
   <br />
   <a href="./listing.html">← Back to Listing</a>
@@ -74,4 +70,27 @@ function attachRemoveHandlers(container) {
       window.location.reload();
     });
   });
+}
+function renderSpecRows(devices) {
+  const categoriesInCompare = new Set(devices.map(d => d.category));
+
+  return COMPARE_SPECS
+    .filter(spec =>
+      spec.categories.some(cat => categoriesInCompare.has(cat))
+    )
+    .map(spec => {
+      return `
+        <tr>
+          <td>${spec.label}</td>
+          ${devices
+            .map(device => {
+              const value = getValueByPath(device, spec.path);
+              if (value === null) return `<td>-</td>`;
+              return `<td>${value}${spec.unit ? ' ' + spec.unit : ''}</td>`;
+            })
+            .join('')}
+        </tr>
+      `;
+    })
+    .join('');
 }
