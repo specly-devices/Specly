@@ -46,9 +46,9 @@ function renderCompareTable(devices, container) {
       ${devices.map(d => `<td>${d.brand}</td>`).join('')}
     </tr>
     <tr>
-      <td>Price</td>
-      ${devices.map(d => `<td>$${d.price}</td>`).join('')}
-    </tr>
+  <td>Price</td>
+  ${devices.map(d => `<td>$${d.pricing.launch_price}</td>`).join('')}
+</tr>
     <tr>
       <td>Action</td>
       ${devices.map(d =>
