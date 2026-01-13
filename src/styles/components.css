@@ -121,3 +121,7 @@ button:disabled {
   border: 1px dashed #ccc;
   border-radius: 6px;
 }
+.diff {
+  background-color: #e8f0ff;
+  font-weight: 600;
+}
