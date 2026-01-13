@@ -31,3 +31,7 @@ export function removeFromCompare(deviceId) {
 export function clearCompare() {
   localStorage.removeItem(STORAGE_KEY);
 }
+export function setCompareDevices(ids) {
+  localStorage.setItem('compareDevices', JSON.stringify(ids));
+}
+
