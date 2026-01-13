@@ -73,14 +73,6 @@ function renderSpecRows(devices) {
         getValueByPath(device, spec.path)
       );
 
-      // Remove rows where all values are identical or all null
-      const nonNullValues = values.filter(v => v !== null);
-      const uniqueValues = new Set(nonNullValues);
-
-      if (uniqueValues.size <= 1) {
-        return '';
-      }
-
       return `
         <tr>
           <td>${spec.label}</td>
