@@ -11,16 +11,15 @@ export async function initComparePage() {
 
   if (compareIds.length === 0) {
     app.innerHTML = `
-  ${Header()}
-  <h1>Compare Devices</h1>
+      ${Header()}
+      <h1>Compare Devices</h1>
 
-  <div class="empty-state">
-  <p>No devices added to compare.</p>
-</div>
+      <div class="empty-state">
+        <p>No devices added to compare.</p>
+      </div>
 
-  <a href="./listing.html">Go to Listing</a>
-`;
-
+      <a href="./listing.html">Go to Listing</a>
+    `;
     return;
   }
 
@@ -35,42 +34,33 @@ export async function initComparePage() {
 }
 
 function renderCompareTable(devices, container) {
- container.innerHTML = `
-  ${Header()}
-  <h1>Compare Devices</h1>
- <table>
-  <tr>
-    <th>Feature</th>
-    ${devices.map(d => `<th>${d.name}</th>`).join('')}
-  </tr>
+  container.innerHTML = `
+    ${Header()}
+    <h1>Compare Devices</h1>
 
-  <tr>
-    <td>Price</td>
-    ${devices.map(d => `<td>$${d.pricing.launch_price}</td>`).join('')}
-  </tr>
+    <table>
+      <tr>
+        <th>Feature</th>
+        ${devices.map(d => `<th>${d.name}</th>`).join('')}
+      </tr>
 
-  ${renderSpecRows(devices)}
+      <tr>
+        <td>Price</td>
+        ${devices.map(d => `<td>$${d.pricing.launch_price}</td>`).join('')}
+      </tr>
 
-</table>
+      ${renderSpecRows(devices)}
 
-  <br />
-  <a href="./listing.html">← Back to Listing</a>
-`;
-    
+      ${renderActionRow(devices)}
+    </table>
+
+    <br />
+    <a href="./listing.html">← Back to Listing</a>
+  `;
+
   attachRemoveHandlers(container);
 }
 
-function attachRemoveHandlers(container) {
-  const buttons = container.querySelectorAll('button[data-id]');
-
-  buttons.forEach(button => {
-    button.addEventListener('click', () => {
-      const id = button.getAttribute('data-id');
-      removeFromCompare(id);
-      window.location.reload();
-    });
-  });
-}
 function renderSpecRows(devices) {
   const categoriesInCompare = new Set(devices.map(d => d.category));
 
@@ -93,4 +83,27 @@ function renderSpecRows(devices) {
       `;
     })
     .join('');
+}
+
+function renderActionRow(devices) {
+  return `
+    <tr>
+      <td>Action</td>
+      ${devices
+        .map(d => `<td><button data-id="${d.id}">Remove</button></td>`)
+        .join('')}
+    </tr>
+  `;
+}
+
+function attachRemoveHandlers(container) {
+  const buttons = container.querySelectorAll('button[data-id]');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const id = button.getAttribute('data-id');
+      removeFromCompare(id);
+      window.location.reload();
+    });
+  });
 }
