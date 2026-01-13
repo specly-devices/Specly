@@ -4,6 +4,8 @@ import { Header } from '../../ui/components/Header.js';
 import { COMPARE_SPECS } from '../config/compareSpecs.config.js';
 import { getValueByPath } from '../utils/object.utils.js';
 
+let hideIdenticalSpecs = false;
+
 export async function initComparePage() {
   const app = document.getElementById('app');
 
@@ -38,6 +40,11 @@ function renderCompareTable(devices, container) {
     ${Header()}
     <h1>Compare Devices</h1>
 
+    <label class="compare-toggle">
+      <input type="checkbox" id="toggle-identical" ${hideIdenticalSpecs ? 'checked' : ''} />
+      Hide identical specs
+    </label>
+
     <table>
       <tr>
         <th>Feature</th>
@@ -58,6 +65,13 @@ function renderCompareTable(devices, container) {
     <a href="./listing.html">← Back to Listing</a>
   `;
 
+  document
+    .getElementById('toggle-identical')
+    .addEventListener('change', e => {
+      hideIdenticalSpecs = e.target.checked;
+      renderCompareTable(devices, container);
+    });
+
   attachRemoveHandlers(container);
 }
 
@@ -72,6 +86,13 @@ function renderSpecRows(devices) {
       const values = devices.map(device =>
         getValueByPath(device, spec.path)
       );
+
+      const nonNullValues = values.filter(v => v !== null);
+      const uniqueValues = new Set(nonNullValues);
+
+      if (hideIdenticalSpecs && uniqueValues.size <= 1) {
+        return '';
+      }
 
       return `
         <tr>
