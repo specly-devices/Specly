@@ -1,4 +1,4 @@
-import { getCompareDevices, removeFromCompare } from '../state/compare.state.js';
+import { getCompareDevices, removeFromCompare, setCompareDevices } from '../state/compare.state.js';
 import { getDeviceById } from '../services/device.service.js';
 import { Header } from '../../ui/components/Header.js';
 import { COMPARE_SPECS } from '../config/compareSpecs.config.js';
@@ -9,7 +9,17 @@ let hideIdenticalSpecs = false;
 export async function initComparePage() {
   const app = document.getElementById('app');
 
-  const compareIds = getCompareDevices();
+  // 1. Read compare IDs from URL first
+  const params = new URLSearchParams(window.location.search);
+  const urlIds = params.get('ids');
+  let compareIds = [];
+
+  if (urlIds) {
+    compareIds = urlIds.split(',');
+    setCompareDevices(compareIds);
+  } else {
+    compareIds = getCompareDevices();
+  }
 
   if (compareIds.length === 0) {
     app.innerHTML = `
@@ -127,7 +137,14 @@ function attachRemoveHandlers(container) {
     button.addEventListener('click', () => {
       const id = button.getAttribute('data-id');
       removeFromCompare(id);
-      window.location.reload();
+
+      // Update URL
+      const remainingIds = getCompareDevices();
+      if (remainingIds.length === 0) {
+        window.location.href = './compare.html';
+      } else {
+        window.location.search = `?ids=${remainingIds.join(',')}`;
+      }
     });
   });
 }
