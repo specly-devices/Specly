@@ -125,3 +125,13 @@ button:disabled {
   background-color: #e8f0ff;
   font-weight: 600;
 }
+.compare-toggle {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.compare-toggle input {
+  margin-right: 6px;
+}
