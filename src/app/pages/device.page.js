@@ -49,7 +49,9 @@ button.addEventListener('click', () => {
     return;
   }
 
-  // Redirect to compare page after successful add
-  window.location.href = './compare.html';
+  const ids = JSON.parse(localStorage.getItem('compareDevices')) || [];
+  const query = ids.join(',');
+
+  window.location.href = `./compare.html?ids=${query}`;
 });
 }
