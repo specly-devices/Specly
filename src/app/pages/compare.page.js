@@ -69,14 +69,25 @@ function renderSpecRows(devices) {
       spec.categories.some(cat => categoriesInCompare.has(cat))
     )
     .map(spec => {
+      const values = devices.map(device =>
+        getValueByPath(device, spec.path)
+      );
+
+      // Remove rows where all values are identical or all null
+      const nonNullValues = values.filter(v => v !== null);
+      const uniqueValues = new Set(nonNullValues);
+
+      if (uniqueValues.size <= 1) {
+        return '';
+      }
+
       return `
         <tr>
           <td>${spec.label}</td>
-          ${devices
-            .map(device => {
-              const value = getValueByPath(device, spec.path);
+          ${values
+            .map(value => {
               if (value === null) return `<td>-</td>`;
-              return `<td>${value}${spec.unit ? ' ' + spec.unit : ''}</td>`;
+              return `<td class="diff">${value}${spec.unit ? ' ' + spec.unit : ''}</td>`;
             })
             .join('')}
         </tr>
